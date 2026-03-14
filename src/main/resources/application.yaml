@@ -16,10 +16,7 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
     connect-retries: 3
-    connect-retries-interval: 10
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/ticketingdb}
-    user: ${SPRING_DATASOURCE_USERNAME:ticketing}
-    password: ${SPRING_DATASOURCE_PASSWORD:ticketing123}
+    connect-retries-interval: 10    
   data:
     redis:
       host: ${REDIS_HOST:localhost}
