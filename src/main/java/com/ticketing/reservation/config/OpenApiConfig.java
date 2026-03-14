@@ -18,7 +18,7 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("Secure Ticketing & Reservation API")
                         .description("""
-                                Event ticketing platform with JWT authentication,
+                                Event ticketing and reservations platform with JWT authentication,
                                 role-based authorization, idempotent reservations
                                 and oversell prevention.
                                 
