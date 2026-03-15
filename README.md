@@ -457,7 +457,7 @@ mvn test jacoco:report
 # Report at: target/site/jacoco/index.html
 ```
 
-**Test suite — 54 tests:**
+**Test suite - 54 tests:**
 
 | Category | Tests |
 |----------|-------|
@@ -466,7 +466,7 @@ mvn test jacoco:report
 | Security | RoleBasedAccessTest — CUSTOMER cannot create events, unauthenticated cannot access protected endpoints |
 | Concurrency | OversellConcurrencyTest — 20 threads competing for 10 seats, asserts total active seats never exceed capacity |
 
-#### Test Coverage — 91%
+#### Test Coverage - 91%
 
 ![Coverage Report](docs/images/coverage.png)
 
@@ -517,12 +517,12 @@ mvn spotbugs:gui
 
 ## Future Improvements
 
-- **Distributed rate limiting** — replace in-process Resilience4j with a Redis-backed limiter for multi-instance deployments
-- **Waitlist support** — notify customers automatically when a cancellation frees seats
-- **Event cancellation** — organizer-initiated cancellation with automatic reservation rollback
-- **Kafka integration** — event-driven reservation flow with outbox pattern
-- **Token blacklist** — store invalidated tokens in Redis on logout
-- **Prometheus / Grafana** — custom metrics dashboard (reservation rate, cache hit ratio)
+- **Distributed rate limiting** - replace in-process Resilience4j with a Redis-backed limiter for multi-instance deployments
+- **Waitlist support** - notify customers automatically when a cancellation frees seats
+- **Event cancellation** - organizer-initiated cancellation with automatic reservation rollback
+- **Kafka integration** - event-driven reservation flow with outbox pattern
+- **Token blacklist** - store invalidated tokens in Redis on logout
+- **Prometheus / Grafana** - custom metrics dashboard (reservation rate, cache hit ratio)
 
 ---
 
