@@ -26,7 +26,7 @@ public class Responses {
 
     public record EventResponse(UUID id, UUID ownerId, String title, String venue,
                                 Instant startsAt, Instant endsAt, int capacity,
-                                boolean published, long version, Instant createdAt) {
+                                boolean published, long version, Instant createdAt) implements Serializable  {
         public static EventResponse from(Event e) {
             return new EventResponse(e.getId(), e.getOwnerId(), e.getTitle(), e.getVenue(),
                     e.getStartsAt(), e.getEndsAt(), e.getCapacity(),
