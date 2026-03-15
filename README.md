@@ -12,11 +12,11 @@
 [![Railway](https://img.shields.io/badge/Deployed-Railway-blueviolet)](https://railway.app/)
 
 
+> **📋 System Design Document:** Everything documented below is also available as a detailed PDF report including architecture diagrams, developer guide, ADRs, capacity estimation, component analysis and test results - [SecureTicketingReservationApi.pdf](docs/SecureTicketingReservationApi.pdf)
+
 > **🚀 Live Swagger UI:** https://secureticketingreservationapi-production.up.railway.app/swagger-ui/index.html -- full API available, no local setup required. See [Live Deployment](#-live-deployment-railway) for the end-to-end scenario.
 
 > ⚠️ **Note:** Database credentials are hardcoded in the Dockerfile for Railway deployment and demo purposes only. In a production environment, secrets should be injected via environment variables or a secrets manager (e.g., AWS Secrets Manager, HashiCorp Vault).
-
-> **📋 System Design Document:** Everything documented below is also available as a detailed PDF report including architecture diagrams, ADRs, capacity estimation, component analysis and test results - [SecureTicketingReservationApi.pdf](docs/SecureTicketingReservationApi.pdf)
 
 ---
 
