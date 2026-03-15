@@ -16,9 +16,6 @@ ENTRYPOINT ["java", "-jar", "app.jar", \
   "--spring.flyway.url=jdbc:postgresql://tramway.proxy.rlwy.net:43514/railway", \
   "--spring.flyway.user=postgres", \
   "--spring.flyway.password=FnwcUAQlZgEqOoKuLzPULMnMlURyanfh", \
-  "--spring.data.redis.host=redis.railway.internal", \
-  "--spring.data.redis.port=6379", \
-  "--spring.data.redis.password=fAsqmdSmSdKDeMOcSxnaqVesZbKcTqVb", \
-  "--spring.data.redis.username=default"]
+  "--spring.data.redis.url=redis://default:fAsqmdSmSdKDeMOcSxnaqVesZbKcTqVb@redis.railway.internal:6379"]
   
   
