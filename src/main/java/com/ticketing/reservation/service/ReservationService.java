@@ -28,6 +28,11 @@ public class ReservationService {
     public ReservationResponse createReservation(UUID eventId, ReservationRequest request) {
         UserPrincipal principal = currentUser();
 
+        if (reservationRepository.existsByEventIdAndUserIdAndStatusNot(
+                eventId, principal.getId(), ReservationStatus.CANCELLED)) {
+            throw new BusinessException("You already have an active reservation for this event");
+        }
+        
         Event event = eventRepository.findByIdWithLock(eventId)
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found: " + eventId));
 
