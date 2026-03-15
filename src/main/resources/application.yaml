@@ -17,8 +17,7 @@ spring:
     connect-retries-interval: 10    
   data:
     redis:
-      host: ${SPRING_DATA_REDIS_HOST:localhost}
-      port: ${SPRING_DATA_REDIS_PORT:6379}
+      url: ${SPRING_REDIS_URL:redis://localhost:6379}      
   cache:
     type: redis
     redis:
