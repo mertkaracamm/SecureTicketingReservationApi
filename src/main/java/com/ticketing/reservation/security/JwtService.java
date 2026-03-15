@@ -47,6 +47,7 @@ public class JwtService {
                 .getPayload();
     }
 
+    // Prevents refresh tokens from being used as bearer tokens on protected endpoints
     public boolean isAccessToken(Claims claims) {
         return "access".equals(claims.get("type", String.class));
     }

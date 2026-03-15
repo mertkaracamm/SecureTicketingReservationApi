@@ -24,6 +24,7 @@ public class ReservationService {
     private final EventRepository eventRepository;
 
     // Pessimistic lock on event row prevents overselling under concurrent load
+    // Lock is held until transaction commits, releasing capacity only after write succeeds
     @Transactional
     public ReservationResponse createReservation(UUID eventId, ReservationRequest request) {
         UserPrincipal principal = currentUser();
@@ -73,6 +74,7 @@ public class ReservationService {
         return ReservationResponse.from(reservationRepository.save(reservation));
     }
 
+    // Admins can access any reservation; organizers only their own event's reservations
     private Reservation findAndVerifyAccess(UUID id) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation not found: " + id));

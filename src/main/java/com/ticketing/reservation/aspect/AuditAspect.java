@@ -56,7 +56,7 @@ public class AuditAspect {
             if (auth != null && auth.getPrincipal() instanceof UserPrincipal p) {
                 return p.getId();
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {} // Audit failure must never affect the main operation
         return null;
     }
 

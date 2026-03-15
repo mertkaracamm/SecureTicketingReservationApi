@@ -8,7 +8,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-    show-sql: true    
+    show-sql: true   
   flyway:
     enabled: true
     locations: classpath:db/migration
@@ -42,6 +42,9 @@ management:
   endpoint:
     health:
       show-details: when-authorized
+  info:
+    env:
+      enabled: true
 
 springdoc:
   swagger-ui:
@@ -62,4 +65,13 @@ logging:
   level:
     io.github.resilience4j: DEBUG
             
-            
+info:
+  app:
+    name: Secure Ticketing & Reservation API
+    version: 1.0.0
+    description: Event ticketing platform with JWT authentication and oversell prevention
+    java-version: 21
+    spring-boot-version: 4.0.3      
+       
+     
+           

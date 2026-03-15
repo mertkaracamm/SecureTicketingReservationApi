@@ -78,7 +78,7 @@ public class IdempotencyFilter extends OncePerRequestFilter {
         ContentCachingResponseWrapper wrappedResponse = new ContentCachingResponseWrapper(response);
         try {
             chain.doFilter(request, wrappedResponse);
-        } finally {
+        } finally { // Update record after response is written so replay returns the exact same body
             String responseBody = new String(wrappedResponse.getContentAsByteArray(), StandardCharsets.UTF_8);
             record.setResponseBody(responseBody);
             record.setStatus("COMPLETED");
@@ -87,6 +87,7 @@ public class IdempotencyFilter extends OncePerRequestFilter {
         }
     }
 
+    // SHA-256 hash used as fingerprint to detect payload changes on key reuse
     private String hashBody(byte[] body) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

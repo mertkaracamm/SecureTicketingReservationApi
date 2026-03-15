@@ -75,6 +75,7 @@ public class EventService {
         return EventResponse.from(eventRepository.save(event));
     }
 
+    // Admins see all events; organizers are restricted to their own
     @Transactional(readOnly = true)
     public PageResponse<EventResponse> listEvents(UUID ownerId, int page, int size) {
         UserPrincipal principal = currentUser();
@@ -93,6 +94,7 @@ public class EventService {
         return toPage(events.map(EventResponse::from), pageable);
     }
 
+    // Result is cached in Redis for 5 min — invalidated on any create/update/publish
     @Cacheable(value = "events", key = "#from + '-' + #to + '-' + #q + '-' + #page + '-' + #size")
     @Transactional(readOnly = true)
     public Responses.PageResponse<Responses.EventResponse> listPublicEvents(Instant from, Instant to, String q, int page, int size) {
