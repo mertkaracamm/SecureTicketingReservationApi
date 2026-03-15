@@ -12,11 +12,11 @@
 [![Railway](https://img.shields.io/badge/Deployed-Railway-blueviolet)](https://railway.app/)
 
 
-> **🚀 Live Swagger UI:** https://secureticketingreservationapi-production.up.railway.app/swagger-ui/index.html — full API available, no local setup required. See [Live Deployment](#-live-deployment-railway) for the end-to-end scenario.
+> **🚀 Live Swagger UI:** https://secureticketingreservationapi-production.up.railway.app/swagger-ui/index.html -- full API available, no local setup required. See [Live Deployment](#-live-deployment-railway) for the end-to-end scenario.
 
 > ⚠️ **Note:** Database credentials are hardcoded in the Dockerfile for Railway deployment and demo purposes only. In a production environment, secrets should be injected via environment variables or a secrets manager (e.g., AWS Secrets Manager, HashiCorp Vault).
 
-> **📋 System Design Document:** Everything documented below is also available as a detailed PDF report including architecture diagrams, ADRs, capacity estimation, component analysis and test results — [SecureTicketingReservationApi.pdf](docs/SecureTicketingReservationApi.pdf)
+> **📋 System Design Document:** Everything documented below is also available as a detailed PDF report including architecture diagrams, ADRs, capacity estimation, component analysis and test results - [SecureTicketingReservationApi.pdf](docs/SecureTicketingReservationApi.pdf)
 
 ---
 
@@ -91,7 +91,7 @@ The service exposes a RESTful API secured with stateless JWT authentication, rol
 | Category | Requirement |
 |----------|-------------|
 | Security | BCrypt (cost 12), JWT HS512, constant-time hash comparison (CWE-203), CORS |
-| Concurrency | Pessimistic locking (SELECT FOR UPDATE) at DB level — works in multi-instance deployments |
+| Concurrency | Pessimistic locking (SELECT FOR UPDATE) at DB level - works in multi-instance deployments |
 | Observability | Actuator health/info endpoints, authenticated health details, audit log trail |
 | Testability | 91% coverage, concurrency test with 20 threads, full filter chain integration tests |
 | Scalability | DB-level locking for horizontal scaling, Redis cache for public event reads |
@@ -180,7 +180,7 @@ The application follows a layered architecture: filter chain, controller, servic
 
 ![Request Lifecycle](docs/images/request-lifecycle.png)
 
-#### Reservation Flow — Pessimistic Locking
+#### Reservation Flow - Pessimistic Locking
 
 ![Reservation Flow](docs/images/reservation-flow.png)
 
@@ -188,7 +188,7 @@ The application follows a layered architecture: filter chain, controller, servic
 
 ![JWT Authentication Flow](docs/images/jwt-flow.png)
 
-#### Sequence Diagram — Create Reservation
+#### Sequence Diagram - Create Reservation
 
 ![Sequence Diagram](docs/images/sequence-diagram.png)
 
@@ -212,28 +212,28 @@ The `findPublished` repository method uses a native SQL query rather than JPQL. 
 
 ### Dive Into Key Components
 
-**JwtAuthenticationFilter** — Runs on every request before the controller. Reads the Bearer token from the Authorization header, validates it via JwtService, and loads the user into the SecurityContext. Open endpoints like `/api/auth/**` are unaffected.
+**JwtAuthenticationFilter** - Runs on every request before the controller. Reads the Bearer token from the Authorization header, validates it via JwtService, and loads the user into the SecurityContext. Open endpoints like `/api/auth/**` are unaffected.
 
-**IdempotencyFilter** — Applies only to POST requests with an `Idempotency-Key` header. Hashes the request body and checks the `idempotency_keys` table. If a completed record exists with the same hash, the cached response is returned immediately without touching the controller.
+**IdempotencyFilter** - Applies only to POST requests with an `Idempotency-Key` header. Hashes the request body and checks the `idempotency_keys` table. If a completed record exists with the same hash, the cached response is returned immediately without touching the controller.
 
-**SecurityConfig** — Sets up the Spring Security filter chain: stateless sessions, CSRF disabled, JwtAuthenticationFilter added before the default auth filter. Fine-grained role checks are handled per method with `@PreAuthorize`.
+**SecurityConfig** - Sets up the Spring Security filter chain: stateless sessions, CSRF disabled, JwtAuthenticationFilter added before the default auth filter. Fine-grained role checks are handled per method with `@PreAuthorize`.
 
-**JwtService** — Generates access tokens (15 min) and refresh tokens (7 days) signed with HS512. Both carry userId, email, roles and a type claim. The type claim prevents a refresh token from being used as a bearer token for protected endpoints.
+**JwtService** - Generates access tokens (15 min) and refresh tokens (7 days) signed with HS512. Both carry userId, email, roles and a type claim. The type claim prevents a refresh token from being used as a bearer token for protected endpoints.
 
-**ReservationService** — The most concurrency-sensitive component. Acquires a `PESSIMISTIC_WRITE` lock on the event row (`SELECT FOR UPDATE`), sums active seats, and compares against capacity — all inside a single transaction. If capacity is exceeded, a `BusinessException` is thrown and the lock is released on rollback.
+**ReservationService** - The most concurrency-sensitive component. Acquires a `PESSIMISTIC_WRITE` lock on the event row (`SELECT FOR UPDATE`), sums active seats, and compares against capacity — all inside a single transaction. If capacity is exceeded, a `BusinessException` is thrown and the lock is released on rollback.
 
-**AuditAspect** — An `@AfterReturning` AOP pointcut on all state-changing service methods. Captures actor, action, resource ID, IP, and User-Agent, then calls `AuditService.log()` which runs `@Async` in a `REQUIRES_NEW` transaction. Audit failures are silently caught so they never roll back the main operation.
+**AuditAspect** - An `@AfterReturning` AOP pointcut on all state-changing service methods. Captures actor, action, resource ID, IP, and User-Agent, then calls `AuditService.log()` which runs `@Async` in a `REQUIRES_NEW` transaction. Audit failures are silently caught so they never roll back the main operation.
 
-**GlobalExceptionHandler** — A `@RestControllerAdvice` that maps all exceptions to structured error responses. Stack traces never reach the client.
+**GlobalExceptionHandler** - A `@RestControllerAdvice` that maps all exceptions to structured error responses. Stack traces never reach the client.
 
-**Resilience4j Rate Limiter** — Applied to the login endpoint via `@RateLimiter` annotation. Configured at 10 requests per minute with zero wait time. Rejected requests hit a fallback that throws `RateLimitException`, mapped to 429.
+**Resilience4j Rate Limiter** - Applied to the login endpoint via `@RateLimiter` annotation. Configured at 10 requests per minute with zero wait time. Rejected requests hit a fallback that throws `RateLimitException`, mapped to 429.
 
 ---
 
 ### Scalability, Fault Tolerance & Reliability
 
 **Scalability**
-- Stateless by design — no session data in memory, multiple instances work without coordination
+- Stateless by design - no session data in memory, multiple instances work without coordination
 - Pessimistic locking serializes writes at DB level regardless of instance count
 - Redis cache eliminates repeated DB reads for public event listings
 - Rate limiting can be replaced with Redis-backed limiter for multi-instance protection
@@ -249,7 +249,7 @@ The `findPublished` repository method uses a native SQL query rather than JPQL. 
 | Redis down | Cache misses fall through to PostgreSQL, application keeps working |
 
 **Reliability**
-- Every write wrapped in `@Transactional` — failed operations roll back completely
+- Every write wrapped in `@Transactional` - failed operations roll back completely
 - `@Version` field on Event prevents silent last-write-wins overwrites
 - Flyway applies migrations in order with checksum tracking
 - AuditLog rows are insert-only, never updated or deleted
