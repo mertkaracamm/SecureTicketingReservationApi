@@ -6,13 +6,19 @@
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.3-brightgreen)](https://spring.io/projects/spring-boot)
 [![Test Coverage](https://img.shields.io/badge/Coverage-91%25-brightgreen)](https://www.jacoco.org/)
 [![Tests](https://img.shields.io/badge/Tests-54%20passing-success)]()
+[![Docker](https://img.shields.io/badge/Docker-Dockerfile-blue)](https://www.docker.com/)
 [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue)](https://www.postgresql.org/)
 [![Redis](https://img.shields.io/badge/Cache-Redis-red)](https://redis.io/)
 [![Railway](https://img.shields.io/badge/Deployed-Railway-blueviolet)](https://railway.app/)
 
+
 > **🚀 Live Swagger UI:** https://secureticketingreservationapi-production.up.railway.app/swagger-ui/index.html — full API available, no local setup required. See [Live Deployment](#-live-deployment-railway) for the end-to-end scenario.
 
+> ⚠️ **Note:** Database credentials are hardcoded in the Dockerfile for Railway deployment only. In a production environment, secrets should be injected via environment variables or a secrets manager (e.g., AWS Secrets Manager, HashiCorp Vault).
+> In production, secrets should be managed via a secrets manager (e.g., AWS Secrets Manager, HashiCorp Vault).
+
 > **📋 System Design Document:** Everything documented below is also available as a detailed PDF report including architecture diagrams, ADRs, capacity estimation, component analysis and test results — [SecureTicketingReservationApi.pdf](docs/SecureTicketingReservationApi.pdf)
+
 ---
 
 ## Table of Contents
