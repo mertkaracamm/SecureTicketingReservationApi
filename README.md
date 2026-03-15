@@ -463,8 +463,8 @@ mvn test jacoco:report
 |----------|-------|
 | Unit | ReservationServiceTest, EventServiceTest, AuthServiceTest, JwtServiceTest, IdempotencyFilterTest |
 | Integration (H2) | AuthControllerTest, EventControllerTest, ReservationControllerTest |
-| Security | RoleBasedAccessTest — CUSTOMER cannot create events, unauthenticated cannot access protected endpoints |
-| Concurrency | OversellConcurrencyTest — 20 threads competing for 10 seats, asserts total active seats never exceed capacity |
+| Security | RoleBasedAccessTest - CUSTOMER cannot create events, unauthenticated cannot access protected endpoints |
+| Concurrency | OversellConcurrencyTest - 20 threads competing for 10 seats, asserts total active seats never exceed capacity |
 
 #### Test Coverage - 91%
 
@@ -505,13 +505,13 @@ mvn spotbugs:gui
 
 | Issue | Fix |
 |-------|-----|
-| `DM_DEFAULT_ENCODING` | `JwtService.getBytes()` — fixed with `StandardCharsets.UTF_8` |
-| `EI_EXPOSE_REP` | `UserPrincipal.getAuthorities()` — wrapped with `Collections.unmodifiableCollection()` |
-| `UNSAFE_HASH_EQUALS (CWE-203)` | `IdempotencyFilter` timing attack — fixed with `MessageDigest.isEqual()` |
+| `DM_DEFAULT_ENCODING` | `JwtService.getBytes()` - fixed with `StandardCharsets.UTF_8` |
+| `EI_EXPOSE_REP` | `UserPrincipal.getAuthorities()` - wrapped with `Collections.unmodifiableCollection()` |
+| `UNSAFE_HASH_EQUALS (CWE-203)` | `IdempotencyFilter` timing attack - fixed with `MessageDigest.isEqual()` |
 | `DM_DEFAULT_ENCODING` (x2) | Additional charset issues resolved |
 
 **3 documented false positives remaining:**  
-`EI_EXPOSE_REP2` warnings on Spring-managed singleton beans (`SecurityConfig`, `JwtService`, `IdempotencyFilter`). SpotBugs flags constructor injection storing an external reference, but Spring controls the lifecycle of these beans — no external mutation is possible. Suppressing with `@SuppressFBWarnings` would hide the signal for future classes, so they are left open with this explanation.
+`EI_EXPOSE_REP2` warnings on Spring-managed singleton beans (`SecurityConfig`, `JwtService`, `IdempotencyFilter`). SpotBugs flags constructor injection storing an external reference, but Spring controls the lifecycle of these beans no external mutation is possible. Suppressing with `@SuppressFBWarnings` would hide the signal for future classes, so they are left open with this explanation.
 
 ---
 
