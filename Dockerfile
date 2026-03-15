@@ -9,9 +9,6 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar", \
-  "--spring.datasource.url=jdbc:postgresql://tramway.proxy.rlwy.net:43514/railway", \
-  "--spring.datasource.username=postgres", \  
-  "--spring.flyway.url=jdbc:postgresql://tramway.proxy.rlwy.net:43514/railway", \
-  "--spring.flyway.user=postgres", \  
-  "--spring.data.redis.url=redis://default:fAsqmdSmSdKDeMOcSxnaqVesZbKcTqVb@redis.railway.internal:6379"]
+ENTRYPOINT ["sh", "-c", "java -jar app.jar --spring.datasource.url=jdbc:postgresql://tramway.proxy.rlwy.net:43514/railway --spring.datasource.username=postgres --spring.datasource.password=$SPRING_DATASOURCE_PASSWORD --spring.flyway.url=jdbc:postgresql://tramway.proxy.rlwy.net:43514/railway --spring.flyway.user=postgres --spring.flyway.password=$SPRING_FLYWAY_PASSWORD --spring.data.redis.url=$SPRING_REDIS_URL"]
+  
+  
