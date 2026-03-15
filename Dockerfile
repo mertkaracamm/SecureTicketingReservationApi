@@ -11,9 +11,7 @@ COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar", \
   "--spring.datasource.url=jdbc:postgresql://tramway.proxy.rlwy.net:43514/railway", \
-  "--spring.datasource.username=postgres", \
-  "--spring.datasource.password=FnwcUAQlZgEqOoKuLzPULMnMlURyanfh", \
+  "--spring.datasource.username=postgres", \  
   "--spring.flyway.url=jdbc:postgresql://tramway.proxy.rlwy.net:43514/railway", \
-  "--spring.flyway.user=postgres", \
-  "--spring.flyway.password=FnwcUAQlZgEqOoKuLzPULMnMlURyanfh", \
+  "--spring.flyway.user=postgres", \  
   "--spring.data.redis.url=redis://default:fAsqmdSmSdKDeMOcSxnaqVesZbKcTqVb@redis.railway.internal:6379"]
